@@ -12,8 +12,12 @@ const routes: Routes = [
     loadChildren: () => import('./tabs/tabs.module').then(m => m.TabsPageModule)
   },
   {
-    path: 'detalhes/:id',
-    loadChildren: () => import('./detalhes/detalhes.module').then( m => m.DetalhesPageModule)
+    path: 'imovel/:id',
+    loadChildren: () => import('./home/property-details/property-details-routing.module').then( m => m.PropertyDetailsPageRoutingModule)
+  },
+  {
+    path: 'home',
+    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   }
 
 ];

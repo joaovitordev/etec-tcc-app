@@ -2,19 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-tab1',
-  templateUrl: 'tab1.page.html',
-  styleUrls: ['tab1.page.scss']
+  selector: 'app-home',
+  templateUrl: './home.page.html',
+  styleUrls: ['./home.page.scss'],
 })
-export class Tab1Page implements OnInit{
+export class HomePage implements OnInit {
 
   itens: any;
 
   constructor(
     private router: Router
-  ) {}
+  ) { }
 
-  ngOnInit(){
+  ngOnInit() {
+
     this.itens = [
       {
         id : 1 ,
@@ -35,9 +36,10 @@ export class Tab1Page implements OnInit{
         descricao : 'É UM SITIO'
       }
     ];
+
   }
 
   detalhes(){
-    this.router.navigateByUrl('/detalhes' + this.itens.id);
+    this.router.navigateByUrl('/property-details' + this.itens.id);
   }
 }
