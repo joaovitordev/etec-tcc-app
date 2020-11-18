@@ -39,7 +39,11 @@ export class HomePage implements OnInit {
 
   }
 
-  detalhes(){
+  details(){
     this.router.navigateByUrl('/property-details' + this.itens.id);
+  }
+
+  houseInMaps(){
+    this.router.navigateByUrl('/#');
   }
 }
