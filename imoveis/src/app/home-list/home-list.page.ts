@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import { PropertysService } from '../services/propertys.service';
 @Component({
   selector: 'app-home-list',
   templateUrl: './home-list.page.html',
@@ -7,9 +7,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeListPage implements OnInit {
 
-  constructor() { }
+  constructor(private propertyService: PropertysService) { }
+
+  propertys: any;
 
   ngOnInit() {
+    this.getPropertys();
+  }
+
+  getPropertys() {
+    this.propertyService.get().subscribe((data) => {
+      this.propertys = data;
+    })
   }
 
 }
