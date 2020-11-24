@@ -1,26 +1,13 @@
 <ion-header>
   <ion-toolbar>
-    <ion-searchbar class="sbp-button" animated></ion-searchbar>
-    <ion-button class="gps-button" (click)="#">
-      <ion-icon name="globe-outline"></ion-icon>
+    <ion-searchbar class="sbp-button" slot="start"></ion-searchbar>
+    <ion-button class="gps-button" slot="end" (click)="houseInLists()">
+      <ion-icon name="home-outline"></ion-icon>
     </ion-button>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
-  <ion-card *ngFor="let item of itens">
-    <ion-item [id]="item.id">
-      <ion-img [src]="item.src"></ion-img>
-      <ion-label>{{ item.titulo }}</ion-label> 
-    </ion-item>
-    <ion-card-content>
-      {{ item.descricao }} 
-    </ion-card-content>
-    <ion-item>
-      <ion-button fill="outline" slot="end" (click)="details(id)">Detalhes</ion-button>
-    </ion-item>
-  </ion-card> 
-
+  <div #map id="map"></div>
 </ion-content>
   

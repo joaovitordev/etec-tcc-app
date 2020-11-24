@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router} from '@angular/router';
 import { PropertysService } from '../services/propertys.service';
 @Component({
   selector: 'app-home-list',
@@ -7,7 +8,10 @@ import { PropertysService } from '../services/propertys.service';
 })
 export class HomeListPage implements OnInit {
 
-  constructor(private propertyService: PropertysService) { }
+  constructor(
+    private propertyService: PropertysService,
+    private router: Router
+  ) { }
 
   propertys: any;
 
@@ -21,4 +25,7 @@ export class HomeListPage implements OnInit {
     })
   }
 
+  houseInMaps(){
+    this.router.navigateByUrl('/home');
+  }
 }
