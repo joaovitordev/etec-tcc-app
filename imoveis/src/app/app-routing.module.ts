@@ -7,7 +7,7 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: 'property-details',
+    path: 'property-details/:id_property',
     loadChildren: () => import('./property-details/property-details.module').then( m => m.PropertyDetailsPageModule)
   },
   {

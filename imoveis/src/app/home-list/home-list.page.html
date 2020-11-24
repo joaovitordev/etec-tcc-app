@@ -1,20 +1,25 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>home-list</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-searchbar class='sbp-button' slot='start'></ion-searchbar>
+        <ion-button class='gps-button' slot='end'>
+            <ion-icon name="map-outline"></ion-icon>
+        </ion-button>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
 
-  <ion-card *ngFor="let property of propertys">
-    <img src="https://youlikedigital.com.br/iluguel/images/{{ property.url }}" />
-    <ion-card-header>
-      <ion-card-subtitle>{{ property.neighborhood }}</ion-card-subtitle>
-      <ion-card-title> {{ property.title }} </ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-     {{ property.monthly_payment }}
-    </ion-card-content>
-  </ion-card>
+    <ion-card *ngFor="let property of propertys">
+        <img src="https://youlikedigital.com.br/iluguel/images/{{ property.url }}" />
+        <ion-card-header>
+            <ion-card-subtitle>{{ property.neighborhood }}</ion-card-subtitle>
+            <ion-card-title> {{ property.title }} </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            R${{ property.monthly_payment }}
+
+            <ion-button slot='end' (click)='propertyDetails(property.id_property)'>Detalhes</ion-button>
+        </ion-card-content>
+    </ion-card>
 
 </ion-content>

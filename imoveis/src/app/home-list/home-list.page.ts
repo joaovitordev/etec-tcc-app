@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { PropertysService } from '../services/propertys.service';
 @Component({
   selector: 'app-home-list',
@@ -7,9 +8,13 @@ import { PropertysService } from '../services/propertys.service';
 })
 export class HomeListPage implements OnInit {
 
-  constructor(private propertyService: PropertysService) { }
+  constructor(
+    private propertyService: PropertysService,
+    private router: Router
+    ) { }
 
   propertys: any;
+
 
   ngOnInit() {
     this.getPropertys();
@@ -18,7 +23,12 @@ export class HomeListPage implements OnInit {
   getPropertys() {
     this.propertyService.get().subscribe((data) => {
       this.propertys = data;
-    })
+    });
+  }
+
+  propertyDetails(id: any){
+
+    this.router.navigateByUrl('/property-details/' + id);
   }
 
 }
