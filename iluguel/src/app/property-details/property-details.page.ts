@@ -1,7 +1,7 @@
 import { convertActionBinding } from '@angular/compiler/src/compiler_util/expression_converter';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { PropertysService } from '../services/propertys.service';
+import { PropertyService } from '../services/property.service';
 
 @Component({
   selector: 'app-property-details',
@@ -12,7 +12,7 @@ export class PropertyDetailsPage implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private propertyService: PropertysService,
+    private propertyService: PropertyService,
   ) { 
     this.id = this.route.snapshot.paramMap.get('id_property');
   }

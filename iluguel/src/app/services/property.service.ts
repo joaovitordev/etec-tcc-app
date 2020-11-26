@@ -1,20 +1,22 @@
-import { Injectable, OnInit } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class PropertysService implements OnInit {
+export class PropertyService {
+  
 
-  constructor(private http: HttpClient) { }
+  constructor(
+    private http: HttpClient
+  ) { }
 
-  ngOnInit() {
-    
+  ngOnInit(){
+
   }
-
+  
   get(): any {
     return this.http.get('https://youlikedigital.com.br/iluguel/api/get-propertys.php');
   }
   
 }
-

@@ -1,106 +1,109 @@
 <ion-header>
-    <ion-toolbar>
-        <ion-title>
-            Detalhes
-        </ion-title>
-    </ion-toolbar>
+  <ion-toolbar>
+      <ion-button slot="start">
+          <ion-back-button></ion-back-button>
+      </ion-button>
+      <ion-title>
+          Detalhes
+      </ion-title>
+  </ion-toolbar>
 </ion-header>
 
 <ion-content [padding]>
-    <div>
+  <div>
 
-        <img src="https://youlikedigital.com.br/iluguel/images/{{propertyUrl}}" />
-        <ion-item>Title: {{propertyTitle}}</ion-item>
-        <ion-item>Bairro: {{propertyNeighborhood}} </ion-item>
-        <label>Comodos</label>
-        <ion-grid>
-            <ion-row>
-                <ion-col>
-                    <ion-icon name='bed-outline'></ion-icon>
-                    Quartos : {{propertyBedroom}}
-                </ion-col>
-                <ion-col>
-                    <ion-icon name='tv-outline'></ion-icon>
-                    Salas : {{propertyRoom}}
-                </ion-col>
-            </ion-row>
+      <img src="https://youlikedigital.com.br/iluguel/images/{{propertyUrl}}" />
+      <ion-item>Title: {{propertyTitle}}</ion-item>
+      <ion-item>Bairro: {{propertyNeighborhood}} </ion-item>
+      <label>Comodos</label>
+      <ion-grid>
+          <ion-row>
+              <ion-col>
+                  <ion-icon name='bed-outline'></ion-icon>
+                  Quartos : {{propertyBedroom}}
+              </ion-col>
+              <ion-col>
+                  <ion-icon name='tv-outline'></ion-icon>
+                  Salas : {{propertyRoom}}
+              </ion-col>
+          </ion-row>
 
-            <ion-row>
-                <ion-col>
-                    <ion-icon name='restaurant-outline'></ion-icon>
-                    Cozinhas : {{propertyKitchen}}
-                </ion-col>
-                <ion-col>
-                    <ion-icon name='trash-bin-outline'></ion-icon>
-                    Banheiros : {{propertyBathroom}}
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <ion-icon name='car-outline'></ion-icon>
-                    Garagem : {{propertyGarage}} vagas
-                </ion-col>
-            </ion-row>
-        </ion-grid>
+          <ion-row>
+              <ion-col>
+                  <ion-icon name='restaurant-outline'></ion-icon>
+                  Cozinhas : {{propertyKitchen}}
+              </ion-col>
+              <ion-col>
+                  <ion-icon name='trash-bin-outline'></ion-icon>
+                  Banheiros : {{propertyBathroom}}
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col>
+                  <ion-icon name='car-outline'></ion-icon>
+                  Garagem : {{propertyGarage}} vagas
+              </ion-col>
+          </ion-row>
+      </ion-grid>
 
-        <label>Valores</label>
-        <ion-grid>
-            <ion-row>
-                <ion-col>
-                    <ion-icon name='cash-outline'></ion-icon>
-                    R$ {{propertyDeposit}} de deposito
-                </ion-col>
-                <ion-col>
-                    <ion-icon name='today-outline'></ion-icon>
-                    R$ {{propertyMonthlyPayment}} de mensalidade
-                </ion-col>
-            </ion-row>
-        </ion-grid>
+      <label>Valores</label>
+      <ion-grid>
+          <ion-row>
+              <ion-col>
+                  <ion-icon name='cash-outline'></ion-icon>
+                  R$ {{propertyDeposit}} de deposito
+              </ion-col>
+              <ion-col>
+                  <ion-icon name='today-outline'></ion-icon>
+                  R$ {{propertyMonthlyPayment}} de mensalidade
+              </ion-col>
+          </ion-row>
+      </ion-grid>
 
-        <label>Outras Informações</label>
-        <ion-grid>
-            <ion-row>
-                <ion-col>
-                    <ion-icon name='football-outline'></ion-icon>
-                    {{propertyChildren}}
-                </ion-col>
-                <ion-col>
-                    <ion-icon name='paw-outline'></ion-icon>
-                    {{propertyPets}}
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <ion-icon name='water-outline'></ion-icon>
-                    {{propertyWater}}
-                </ion-col>
-                <ion-col>
-                    <ion-icon name='bulb-outline'></ion-icon>
-                    {{propertyEnergy}}
-                </ion-col>
-            </ion-row>
-            <ion-row>
-                <ion-col>
-                    <ion-icon name='people-outline'></ion-icon>
-                    {{propertyIndividual}}
-                </ion-col>
-                <ion-col>
-                    <ion-icon name='document-text-outline'></ion-icon>
-                    {{propertyContract}}
-                </ion-col>
-            </ion-row>
-        </ion-grid>
+      <label>Outras Informações</label>
+      <ion-grid>
+          <ion-row>
+              <ion-col>
+                  <ion-icon name='football-outline'></ion-icon>
+                  {{propertyChildren}}
+              </ion-col>
+              <ion-col>
+                  <ion-icon name='paw-outline'></ion-icon>
+                  {{propertyPets}}
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col>
+                  <ion-icon name='water-outline'></ion-icon>
+                  {{propertyWater}}
+              </ion-col>
+              <ion-col>
+                  <ion-icon name='bulb-outline'></ion-icon>
+                  {{propertyEnergy}}
+              </ion-col>
+          </ion-row>
+          <ion-row>
+              <ion-col>
+                  <ion-icon name='people-outline'></ion-icon>
+                  {{propertyIndividual}}
+              </ion-col>
+              <ion-col>
+                  <ion-icon name='document-text-outline'></ion-icon>
+                  {{propertyContract}}
+              </ion-col>
+          </ion-row>
+      </ion-grid>
 
-        <label>Informações do propietario</label>
+      <label>Informações do propietario</label>
 
-        <ion-item>
-            Nome do proprietario : {{ownerName}}
-        </ion-item>
-        <ion-item>
-            Email do proprietario : {{ownerEmail}}
-        </ion-item>
-        <ion-item>
-            Telefone do proprietario : {{ownerTelephone}}
-        </ion-item>
-    </div>
+      <ion-item>
+          Nome do proprietario : {{ownerName}}
+      </ion-item>
+      <ion-item>
+          Email do proprietario : {{ownerEmail}}
+      </ion-item>
+      <ion-item>
+          Telefone do proprietario : {{ownerTelephone}}
+      </ion-item>
+  </div>
 </ion-content>

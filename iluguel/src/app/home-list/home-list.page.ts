@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router} from '@angular/router';
-import { PropertysService } from '../services/propertys.service';
+import { PropertyService } from '../services/property.service';
 @Component({
   selector: 'app-home-list',
   templateUrl: './home-list.page.html',
@@ -9,7 +9,7 @@ import { PropertysService } from '../services/propertys.service';
 export class HomeListPage implements OnInit {
 
   constructor(
-    private propertyService: PropertysService,
+    private propertyService: PropertyService,
     private router: Router
   ) { }
 
