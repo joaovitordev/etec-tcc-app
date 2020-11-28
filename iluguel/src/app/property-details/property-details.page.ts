@@ -45,15 +45,15 @@ export class PropertyDetailsPage implements OnInit {
     this.getPropertys();
   }
 
-getPropertys() {
-  this.propertyService.get().subscribe((data) => {
-    this.propertys = data;
-    this.getPropertyById(this.propertys, this.id);
-  });
-}
+  getPropertys() {
+    this.propertyService.get().subscribe((data) => {
+      this.propertys = data;
+      this.getPropertyById(this.propertys, this.id);
+    });
+  }
 
 
-getPropertyById(propertys, id){
+  getPropertyById(propertys, id){
 
     const propertyFilter = propertys.filter((data) => {
       return data.id_property == id;
@@ -80,6 +80,6 @@ getPropertyById(propertys, id){
     this.ownerName = propertyFilter[0].full_name;
     this.ownerEmail = propertyFilter[0].email;
     this.ownerTelephone = propertyFilter[0].telephone;
-}
+  }
 
 }

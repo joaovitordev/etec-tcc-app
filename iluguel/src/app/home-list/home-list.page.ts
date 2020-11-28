@@ -27,7 +27,6 @@ export class HomeListPage implements OnInit {
   }
 
   propertyDetails(id: any){
-
     this.router.navigateByUrl('/property-details/' + id);
   }
 

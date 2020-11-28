@@ -2,10 +2,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
+import { PropertyService } from '../services/property.service';
 
 // Declaração da variável global 
 declare var google: any;
-
 
 @Component({
   selector: 'app-home',
@@ -15,27 +15,30 @@ declare var google: any;
 export class HomePage implements OnInit {
 
   @ViewChild('map', { static: false }) mapElement: ElementRef;
-
+  
   latitude: any;
   longitude: any;
-
   map: any;
-
-  address: string;
-
   responseAddress = new Array();
+  
+  infoWindows: any = [];
 
-
+  id: any;
+  propertys: any;
+  
   constructor(
     private geolocation: Geolocation,
-    private nativeGeocoder: NativeGeocoder,
-    private router: Router
+    private nativeGeocoder: NativeGeocoder, // não usado até o momento.
+    private router: Router,
+    private propertyService: PropertyService
   ) { }
 
   ngOnInit() {
     this.loadMap();
+    this.getPropertys();
   }
 
+  //Faz a criação do mapa que aparece na tela para o usuario pegando como base a localização atual do aparelho.
   loadMap() {
     this.geolocation.getCurrentPosition()
       .then(resp => {
@@ -44,73 +47,94 @@ export class HomePage implements OnInit {
 
         const latLgn = new google.maps.LatLng(this.latitude, this.longitude);
 
-        let mapOptions = {
+        const mapOptions = {
           center: latLgn,
-          zoom: 15,
+          zoom: 13,
+          disableDefaultUI: true,
           mapTypeId: google.maps.MapTypeId.ROADMAP
         };
 
         this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-
-        this.map.addListener('dragend', () => {
-          this.latitude = this.map.center.lat();
-          this.longitude = this.map.center.lng();
-        })
-
-        // Adiciona um pin point no google maps
-        new google.maps.marker({
+        
+        // bloco de teste para saber onde você se encontra
+        // Metodo adiciona um pin point no google maps
+        /*new google.maps.Marker({
           position: new google.maps.LatLng(this.latitude, this.longitude),
-          title: 'Pin Point',
+          title: 'Iluguel-Pin-Pointer',
           map: this.map,
+          animation: google.maps.Animation.DROP,
           // icon: 'assets/icon/iluguel-icon.png' // pin customizado
-        });
+        });*/
 
-        // método que traz o endereço
-        this.getAddressFromCoords(this.latitude, this.longitude);
-
+        // Metodo que traz os imovies disponíveis para aluguel
+        this.addMarker(this.propertys);
+  
       }).catch(error => {
         alert(error);
       });
   }
-  // método que traz o endereço
-  getAddressFromCoords(latitude: number, longitude: number) {
 
-    const options: NativeGeocoderOptions = {
-      useLocale: true,
-      maxResults: 5
-    };
-
-    this.nativeGeocoder.reverseGeocode(latitude, longitude, options)
-      .then((result: NativeGeocoderResult[]) => {
-        this.address = '';
-        // tslint:disable-next-line: prefer-const
-        let responseAddress = [];
-        for (const [key, value] of Object.entries(result[0])) {
-          if (value.length > 0) {
-            responseAddress.push(value);
-          }
-        }
-        responseAddress.reverse();
-
-        this.address = responseAddress[2] + ', ' +
-          responseAddress[1] + ' - ' +
-          responseAddress[3] + ' ' +
-          responseAddress[4] + ' ' +
-          responseAddress[5] + ' ' +
-          responseAddress[6] + ' ' +
-          responseAddress[7] + ' ' +
-          responseAddress[8] + ' ' +
-          responseAddress[9];
+  // Metodo que faz a implementação dos imovies disponíveis e cria um pin marker em sua localização no mapa.
+  addMarker(propertys){
+    
+    for(let property of propertys){
+      let mapMarker = new google.maps.Marker({
+      position: new google.maps.LatLng(property.lat, property.lon),
+      title: property.title,
+      neighborhood: property.neighborhood,
+      price: property.monthly_payment,
+      id: property.id_property,
+      animation: google.maps.Animation.DROP,
+      map: this.map
+      // icon: 'assets/icon/iluguel-icon.png' // pin customizado
       })
-      .catch((error: any) => {
-        this.address = 'Endereço não disponivel!';
-      });
-  }
+      this.addInfoWindow(mapMarker);
+      console.log(mapMarker);
+    }
+  } 
+  // Metodo que cria um card para cada imovel cadastrado com informações simplificadas.
+  addInfoWindow(mapMarker){
+    const content = "<div>" +
+                      "<h5>" + mapMarker.title + "</h5><br>" + 
+                      "<p>" + mapMarker.price + "<br>" + 
+                      " " + mapMarker.neighborhood + "</p><br>" +  
+                      "<ion-button id='details' slot='end'>Detalhes</ion-button>" + 
+                    "</div>";
+    let infoWindow = new google.maps.InfoWindow({
+      content: content
+    });
+    /* Adiciona um listener para, primeiro, executar o metodo que fecha todos os cards,
+       para assim abrir o card que foi selecionado. 
+    */
+    mapMarker.addListener('click', () => {
+      this.closeAllInfoWindows();
+      infoWindow.open(this.map, mapMarker);
+      /* Adiciona um evento que, ao ter o botão de 'detalhes' clicado, 
+         irá redirecional para a pagina com mais detalhas sobre aquele imovel. 
+      */
+      google.maps.event.addListenerOnce(infoWindow, 'domready', () => {
+        document.getElementById('details').addEventListener('click', () => {
+          this.router.navigateByUrl('/property-details/' + mapMarker.id)
+        })
+      })
+    });
 
-  details(){
-    this.router.navigateByUrl('/property-details');
+    this.infoWindows.push(infoWindow);
+    
   }
-
+  // Metodo que fecha todos os cards dos imoveis. 
+  closeAllInfoWindows(){
+    for(let window of this.infoWindows){
+      window.close(); 
+    }
+  }
+  // Metodo que chama o serviço que traz a API com os dados os imoveis.
+  getPropertys() {
+    this.propertyService.get().subscribe((data) => {
+      this.propertys = data;
+    });
+  }
+  // Metodo que faz a navegação para a tela de lista onde todos so imoveis vão estar listados.
   houseInLists(){
     this.router.navigateByUrl('/home-list');
   }
