@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PropertyService {
-  
 
   constructor(
     private http: HttpClient
@@ -18,5 +17,4 @@ export class PropertyService {
   get(): any {
     return this.http.get('https://youlikedigital.com.br/iluguel/api/get-propertys.php');
   }
-  
 }

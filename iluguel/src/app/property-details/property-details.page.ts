@@ -1,7 +1,12 @@
 import { convertActionBinding } from '@angular/compiler/src/compiler_util/expression_converter';
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { PropertyService } from '../services/property.service';
+
+// Declaração da variável global 
+declare var google: any;
 
 @Component({
   selector: 'app-property-details',
@@ -10,9 +15,19 @@ import { PropertyService } from '../services/property.service';
 })
 export class PropertyDetailsPage implements OnInit {
 
+  @ViewChild('map', { static: false }) mapElement: ElementRef;
+
+  latitude: number;
+  longitude: number;
+  latArray: number;
+  lonArray: number;
+  map: any;
+
   constructor(
     private route: ActivatedRoute,
     private propertyService: PropertyService,
+    private geolocation: Geolocation,
+    private nativeGeocoder: NativeGeocoder // não usado até o momento.
   ) { 
     this.id = this.route.snapshot.paramMap.get('id_property');
   }
@@ -35,6 +50,8 @@ export class PropertyDetailsPage implements OnInit {
   propertyEnergy: any;
   propertyDeposit: any;
   propertyMonthlyPayment: any;
+  propertyLat: any;
+  propertyLon: any;
   ownerName: any;
   ownerEmail: any;
   ownerTelephone: any;
@@ -43,15 +60,51 @@ export class PropertyDetailsPage implements OnInit {
 
   ngOnInit() {
     this.getPropertys();
+    this.loadMap();
   }
 
+  loadMap(){
+    this.geolocation.getCurrentPosition()
+    .then(resp => {
+      this.propertyLat = resp.coords.latitude;
+      this.propertyLon = resp.coords.longitude;
+
+      const latLgn = new google.maps.LatLng(this.propertyLat, this.propertyLon);
+
+      const mapOptions = {
+        center: latLgn,
+        zoom: 16,
+        disableDefaultUI: true,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+
+      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+
+      const icon = {
+        url: 'assets/icon/iconImovel.png',
+        scaledSize: new google.maps.Size(45, 45), // scaled size
+        origin: new google.maps.Point(0,0), // origin
+        anchor: new google.maps.Point(0, 0) // anchor
+      }
+
+      new google.maps.Marker({
+        position: new google.maps.LatLng(this.propertyLat, this.propertyLon),
+        id: this.id,
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        icon: icon
+      });
+
+    }).catch(error => {
+      alert(error);
+    });
+  }
   getPropertys() {
     this.propertyService.get().subscribe((data) => {
       this.propertys = data;
       this.getPropertyById(this.propertys, this.id);
     });
   }
-
 
   getPropertyById(propertys, id){
 
@@ -77,9 +130,10 @@ export class PropertyDetailsPage implements OnInit {
     this.propertyEnergy = propertyFilter[0].energy == 1 ? 'A energia está inclusa na mensalidade' : 'A energia não ésta inclusa na mensalidade';
     this.propertyDeposit = propertyFilter[0].deposit;
     this.propertyMonthlyPayment = propertyFilter[0].monthly_payment;
+    this.propertyLat = propertyFilter[0].lat;
+    this.propertyLon = propertyFilter[0].lon;
     this.ownerName = propertyFilter[0].full_name;
     this.ownerEmail = propertyFilter[0].email;
     this.ownerTelephone = propertyFilter[0].telephone;
   }
-
 }

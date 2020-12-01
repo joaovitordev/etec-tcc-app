@@ -41,41 +41,54 @@ export class HomePage implements OnInit {
   //Faz a criação do mapa que aparece na tela para o usuario pegando como base a localização atual do aparelho.
   loadMap() {
     this.geolocation.getCurrentPosition()
-      .then(resp => {
-        this.latitude = resp.coords.latitude;
-        this.longitude = resp.coords.longitude;
+    .then(resp => {
+      this.latitude = resp.coords.latitude;
+      this.longitude = resp.coords.longitude;
 
-        const latLgn = new google.maps.LatLng(this.latitude, this.longitude);
+      const latLgn = new google.maps.LatLng(this.latitude, this.longitude);
 
-        const mapOptions = {
-          center: latLgn,
-          zoom: 13,
-          disableDefaultUI: true,
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
+      const mapOptions = {
+        center: latLgn,
+        zoom: 13,
+        disableDefaultUI: true,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
 
-        this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-        
-        // bloco de teste para saber onde você se encontra
-        // Metodo adiciona um pin point no google maps
-        /*new google.maps.Marker({
-          position: new google.maps.LatLng(this.latitude, this.longitude),
-          title: 'Iluguel-Pin-Pointer',
-          map: this.map,
-          animation: google.maps.Animation.DROP,
-          // icon: 'assets/icon/iluguel-icon.png' // pin customizado
-        });*/
+      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
 
-        // Metodo que traz os imovies disponíveis para aluguel
-        this.addMarker(this.propertys);
-  
-      }).catch(error => {
-        alert(error);
+      const iconUser = {
+        url: 'assets/icon/iconUser.png',
+        scaledSize: new google.maps.Size(30, 30), // scaled size
+        origin: new google.maps.Point(0,0), // origin
+        anchor: new google.maps.Point(0, 0) // anchor
+      }
+      
+      // bloco de teste para saber onde você se encontra
+      // Metodo adiciona um pin point no google maps
+      new google.maps.Marker({
+        position: new google.maps.LatLng(this.latitude, this.longitude),
+        title: 'Iluguel-Pin-Pointer',
+        map: this.map,
+        animation: google.maps.Animation.DROP,
+        icon: iconUser // pin customizado
       });
-  }
+      
+      this.addMarker(this.propertys);
 
+    }).catch(error => {
+      alert(error);
+    });
+  } 
+  
   // Metodo que faz a implementação dos imovies disponíveis e cria um pin marker em sua localização no mapa.
   addMarker(propertys){
+
+    const iconImovel = {
+      url: 'assets/icon/iconImovel.png',
+      scaledSize: new google.maps.Size(30, 30), // scaled size
+      origin: new google.maps.Point(0,0), // origin
+      anchor: new google.maps.Point(0, 0) // anchor
+    }
     
     for(let property of propertys){
       let mapMarker = new google.maps.Marker({
@@ -84,9 +97,10 @@ export class HomePage implements OnInit {
       neighborhood: property.neighborhood,
       price: property.monthly_payment,
       id: property.id_property,
+      distance: property.distance,
       animation: google.maps.Animation.DROP,
-      map: this.map
-      // icon: 'assets/icon/iluguel-icon.png' // pin customizado
+      map: this.map,
+      icon: iconImovel  // pin customizado
       })
       this.addInfoWindow(mapMarker);
       console.log(mapMarker);
@@ -96,8 +110,9 @@ export class HomePage implements OnInit {
   addInfoWindow(mapMarker){
     const content = "<div>" +
                       "<h5>" + mapMarker.title + "</h5><br>" + 
-                      "<p>" + mapMarker.price + "<br>" + 
-                      " " + mapMarker.neighborhood + "</p><br>" +  
+                      "<p>" + mapMarker.neighborhood + "<br>" + 
+                      " R$ " + mapMarker.price + " <br>" +
+                      " " + mapMarker.distance + " Kms</p><br>" +  
                       "<ion-button id='details' slot='end'>Detalhes</ion-button>" + 
                     "</div>";
     let infoWindow = new google.maps.InfoWindow({

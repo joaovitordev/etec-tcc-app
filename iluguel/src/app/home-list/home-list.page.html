@@ -16,7 +16,8 @@
             <ion-card-title> {{ property.title }} </ion-card-title>
         </ion-card-header>
         <ion-card-content>
-            R${{ property.monthly_payment }}
+              R${{ property.monthly_payment }}<br>
+              {{ property.distance }} km<br>
             <ion-button slot='end' (click)='propertyDetails(property.id_property)'>Detalhes</ion-button>
         </ion-card-content>
     </ion-card>
