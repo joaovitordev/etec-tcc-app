@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { PropertyDetailsPage } from './property-details.page';
+import { PropertyDetailsPage } from './propertyDetails.page';
 
 describe('PropertyDetailsPage', () => {
   let component: PropertyDetailsPage;

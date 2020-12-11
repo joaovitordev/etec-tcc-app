@@ -9,9 +9,9 @@ import { PropertyService } from '../services/property.service';
 declare var google: any;
 
 @Component({
-  selector: 'app-property-details',
-  templateUrl: './property-details.page.html',
-  styleUrls: ['./property-details.page.scss'],
+  selector: 'app-propertyDetails',
+  templateUrl: './propertyDetails.page.html',
+  styleUrls: ['./propertyDetails.page.scss'],
 })
 export class PropertyDetailsPage implements OnInit {
 
@@ -62,18 +62,18 @@ export class PropertyDetailsPage implements OnInit {
     this.getPropertys();
     this.loadMap();
   }
-
-  loadMap(){
+  //Faz a criação do mapa que aparece na tela para o usuario pegando como base a localização atual do aparelho.
+  loadMap() {
     this.geolocation.getCurrentPosition()
     .then(resp => {
-      this.propertyLat = resp.coords.latitude;
-      this.propertyLon = resp.coords.longitude;
+      this.latitude = resp.coords.latitude;
+      this.longitude = resp.coords.longitude;
 
-      const latLgn = new google.maps.LatLng(this.propertyLat, this.propertyLon);
+      const latLgn = new google.maps.LatLng(this.latitude, this.longitude);
 
       const mapOptions = {
         center: latLgn,
-        zoom: 16,
+        zoom: 13,
         disableDefaultUI: true,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       };
@@ -84,7 +84,7 @@ export class PropertyDetailsPage implements OnInit {
         url: 'assets/icon/iconImovel.png',
         scaledSize: new google.maps.Size(45, 45), // scaled size
         origin: new google.maps.Point(0,0), // origin
-        anchor: new google.maps.Point(0, 0) // anchor
+        anchor: new google.maps.Point(0,0) // anchor
       }
 
       new google.maps.Marker({
@@ -112,7 +112,7 @@ export class PropertyDetailsPage implements OnInit {
       return data.id_property == id;
     });
 
-    console.log(propertyFilter);
+    console.log(propertyFilter); 
 
     this.propertyTitle = propertyFilter[0].title;
     this.propertyUrl = propertyFilter[0].url;

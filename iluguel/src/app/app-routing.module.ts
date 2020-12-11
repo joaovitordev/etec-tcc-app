@@ -7,16 +7,16 @@ const routes: Routes = [
     loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
   },
   {
-    path: 'home-list',
-    loadChildren: () => import('./home-list/home-list.module').then( m => m.HomeListPageModule)
+    path: 'homeList',
+    loadChildren: () => import('./homeList/homeList.module').then( m => m.HomeListPageModule)
   },
   {
-    path: 'property-details/:id_property',
-    loadChildren: () => import('./property-details/property-details.module').then( m => m.PropertyDetailsPageModule)
+    path: 'propertyDetails/:id_property',
+    loadChildren: () => import('./propertyDetails/propertyDetails.module').then( m => m.PropertyDetailsPageModule)
   },
   {
     path: '',
-    redirectTo: 'home-list',
+    redirectTo: 'homeList',
     pathMatch: 'full'
   },
 ];
