@@ -27,7 +27,6 @@ export class PropertyDetailsPage implements OnInit {
     private route: ActivatedRoute,
     private propertyService: PropertyService,
     private geolocation: Geolocation,
-    private nativeGeocoder: NativeGeocoder // não usado até o momento.
   ) { 
     this.id = this.route.snapshot.paramMap.get('id_property');
   }

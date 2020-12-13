@@ -1,8 +1,8 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
-import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
 import { PropertyService } from '../services/property.service';
+import { LocationAccuracy } from '@ionic-native/location-accuracy/ngx';
 
 // Declaração da variável global 
 declare var google: any;
@@ -26,7 +26,7 @@ export class HomePage implements OnInit {
   
   constructor(
     private geolocation: Geolocation, // Plugin usado para pegar as coordenadas e usa-las no mapa.
-    private nativeGeocoder: NativeGeocoder, // não usado até o momento.
+    private locationAccuracy: LocationAccuracy, // Plugin que solicita permissão ao usuário. acces gps.
     private router: Router, // Plugin nativo que faz a navegação entre paginas.
     private propertyService: PropertyService // Service que trás os dados da nossa API.
   ) { }
@@ -34,13 +34,6 @@ export class HomePage implements OnInit {
   ngOnInit() {
     this.getPropertys(); // Executa o metodo que chama o serviço que trás os dados da API.
     this.loadMap(); // Executa o metodo de criação de mapa ao iniciar a página. 
-  }
-
-  enableLocation(){
-    let enable;
-    enable.addEventListener("click", () => {
-      
-    })
   }
    
   // Metodo que chama o serviço que traz a API com os dados os imoveis.
@@ -74,8 +67,8 @@ export class HomePage implements OnInit {
       distance: property.distance,
       animation: google.maps.Animation.DROP,
       map: this.map,
-      icon: iconImovel  // Pin customizado.
-      })
+      icon: iconImovel // Pin customizado
+    })
       this.addInfoWindow(mapMarker);
       console.log(mapMarker);
     }
