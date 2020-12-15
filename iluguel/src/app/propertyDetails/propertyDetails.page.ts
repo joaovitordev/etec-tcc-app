@@ -28,11 +28,7 @@ export class PropertyDetailsPage implements OnInit {
     private route: ActivatedRoute,
     private propertyService: PropertyService,
     private geolocation: Geolocation,
-<<<<<<< HEAD:iluguel/src/app/propertyDetails/propertyDetails.page.ts
-    private nativeGeocoder: NativeGeocoder,
     private _location: Location
-=======
->>>>>>> a216cbb3e9d1bdcc22e229af3d2ee0d79c585b71:iluguel/src/app/property-details/property-details.page.ts
   ) { 
     this.id = this.route.snapshot.paramMap.get('id_property');
   }
@@ -70,25 +66,16 @@ export class PropertyDetailsPage implements OnInit {
     this.getPropertys();
     this.loadMap();
   }
-<<<<<<< HEAD:iluguel/src/app/propertyDetails/propertyDetails.page.ts
 
   backPage() {
     this._location.back();
   }
-
-  loadMap(){
-    this.geolocation.getCurrentPosition()
-    .then(() => {
-      this.propertyLat;
-      this.propertyLon;
-=======
   //Faz a criação do mapa que aparece na tela para o usuario pegando como base a localização atual do aparelho.
   loadMap() {
     this.geolocation.getCurrentPosition()
     .then(resp => {
       this.latitude = resp.coords.latitude;
       this.longitude = resp.coords.longitude;
->>>>>>> a216cbb3e9d1bdcc22e229af3d2ee0d79c585b71:iluguel/src/app/property-details/property-details.page.ts
 
       const latLgn = new google.maps.LatLng(this.latitude, this.longitude);
 

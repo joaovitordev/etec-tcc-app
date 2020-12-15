@@ -27,6 +27,7 @@ export class HomeListPage implements OnInit {
 
   ngOnInit() {
     this.getPropertys();
+    
   }
 
   search() {
@@ -46,12 +47,9 @@ export class HomeListPage implements OnInit {
     }
   }
      
-
   getPropertys() {
     this.propertyService.get().subscribe((data) => {
       this.propertys = data;
-      this.sliderImages;
-      console.log(this.sliderImages);
       this.getGeolocation(this.propertys);
     });
   }
@@ -69,6 +67,11 @@ export class HomeListPage implements OnInit {
           property.distance = this.getDistance(lat1, lon1, this.latArray, this.lonArray);
           // console.log(lat1, lon1, this.latArray, this.lonArray);
         }
+        this.sliderImages = this.propertys.map(function(item, indice){
+          const slides = item.images_property.split(",")
+          return slides;
+       });
+       console.log(this.sliderImages[0][0])
       }).catch(error => {
         alert(error);
       });
