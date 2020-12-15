@@ -1,0 +1,49 @@
+<div class="header">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="11">
+        <div>
+          <ion-searchbar  animated placeholder="Busque por bairro"  color="light" type="ios" showCancelButton="never"></ion-searchbar>
+        </div>
+      </ion-col>
+      <ion-col size="1">
+        <div>
+          <ion-icon class="icon-more-about" name="ellipsis-vertical"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
+
+<ion-content>
+ 
+  <ion-card (click)='propertyDetails(property.id_property)' *ngFor="let property of propertys">
+    <ion-slides pager="true" [options]="slider">
+      <ion-slide>
+        <img src="https://youlikedigital.com.br/iluguel/images/{{ property.url }}">
+      </ion-slide>
+    </ion-slides>
+
+    <ion-card-header>
+      <ion-card-subtitle>{{ property.neighborhood }}, {{ property.city }}</ion-card-subtitle>
+      <ion-card-title>{{ property.title }}</ion-card-title>
+    </ion-card-header>
+
+    <div class="km">
+      {{ property.distance }} km
+    </div>
+    
+    <p class="mensalidade">
+      R${{ property.monthly_payment }}
+    </p>
+
+  </ion-card>
+
+
+  <ion-fab vertical="bottom" (click)="maps()" horizontal="end" slot="fixed">
+    <div class="button-map">
+      <ion-icon class="icon-map" name="map-outline"></ion-icon> Mapa
+    </div>
+  </ion-fab>
+
+</ion-content>

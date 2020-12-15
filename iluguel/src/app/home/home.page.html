@@ -1,12 +1,26 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-searchbar class="sbp-button" slot="start"></ion-searchbar>
-    <ion-button class="gps-button" slot="end" (click)="houseInLists()">
-      <ion-icon name="home-outline"></ion-icon>
-    </ion-button>
-  </ion-toolbar>
-</ion-header>
+<div class="header">
+  <ion-grid>
+    <ion-row>
+      <ion-col size="11">
+        <div>
+          <ion-searchbar color="light" type="ios" showCancelButton="never"></ion-searchbar>
+        </div>
+      </ion-col>
+      <ion-col size="1">
+        <div>
+          <ion-icon class="icon-more-about" name="ellipsis-vertical"></ion-icon>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</div>
 
-<ion-content [fullscreen]="true">
+<ion-content>
   <div #map id="map"></div>
+
+  <ion-fab vertical="bottom" (click)="houseInLists()" horizontal="end" slot="fixed">
+    <div class="button-list">
+      <ion-icon name="list-outline"></ion-icon> Lista
+    </div>
+  </ion-fab>
 </ion-content>

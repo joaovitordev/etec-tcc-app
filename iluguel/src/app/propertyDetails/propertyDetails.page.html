@@ -1,0 +1,96 @@
+<!-- Back button with custom text and icon -->
+<ion-content>
+
+  <div (click)="backPage()" class="back-page">
+    <ion-icon class="icon-back-page" name="chevron-back-outline"></ion-icon>
+  </div>
+
+  <img src="https://youlikedigital.com.br/iluguel/images/{{propertyUrl}}" />
+  <p class="text-owner">Imóvel alugado por {{ ownerName }}</p>
+  <p class="text-description">{{ propertyTitle }}</p>
+  <hr>
+
+  <center>
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <ion-col>
+          <i class="fas fa-bed"></i>
+          <p class="grid-comodos-text"> {{ propertyBedroom }} Quarto(s)</p>
+        </ion-col>
+        <ion-col>
+          <i class="fas fa-couch"></i>
+          <p class="grid-comodos-text"> {{ propertyRoom }} Sala(s)</p>
+        </ion-col>
+        <ion-col>
+          <i class="fas fa-utensils"></i>
+          <p class="grid-comodos-text"> {{ propertyKitchen }} Cozinha(s)</p>
+        </ion-col>
+        <ion-col>
+          <i class="fas fa-shower"></i>
+          <p class="grid-comodos-text"> {{ propertyBathroom }} Banheiro(s)</p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </center>
+
+  <center>
+    <ion-grid>
+      <ion-row class="ion-align-items-center">
+        <ion-col>
+          <i class="fas fa-child"></i>
+          <p class="grid-comodos-text">{{ propertyChildren }}</p>
+        </ion-col>
+        <ion-col>
+          <i class="fas fa-paw"></i>
+          <p class="grid-comodos-text"> {{ propertyPets }} </p>
+        </ion-col>
+        <ion-col>
+          <i class="fas fa-car"></i>
+          <p class="grid-comodos-text"> {{ propertyGarage }} Garagem</p>
+        </ion-col>
+        <ion-col>
+          <i class="fas fa-home"></i>
+          <p class="grid-comodos-text"> {{ propertyIndividual }} </p>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </center>
+
+  <p class="text-address">{{ propertyNeighborhood }}, {{ propertyCity }} </p>
+  <center>
+    <div #map id="map"></div>
+  </center>
+
+  <ion-list>
+    <ion-item>
+      <ion-label class="text-item-list"><strong>R${{ propertyMonthlyPayment }}</strong> de mensalidade</ion-label>
+      <i class="far fa-calendar-alt"></i>
+    </ion-item>
+    <ion-item>
+      <ion-label class="text-item-list"><strong>R${{ propertyDeposit }}</strong> de depósito</ion-label>
+      <i class="fas fa-money-bill-wave"></i>
+    </ion-item>
+    <ion-item>
+      <ion-label class="text-item-list">{{ propertyWater }}</ion-label>
+      <i class="fas fa-faucet"></i>
+    </ion-item>
+    <ion-item>
+      <ion-label class="text-item-list">{{ propertyEnergy }}</ion-label>
+      <i class="fas fa-plug"></i>
+    </ion-item>
+    <ion-item>
+      <ion-label class="text-item-list">{{ propertyContract }}</ion-label>
+      <i  class="fas fa-file-contract"></i>
+    </ion-item>
+  </ion-list>
+
+</ion-content>
+
+<ion-footer>
+  <ion-toolbar>
+    <!-- <p class="footer-text"><strong>R${{ propertyMonthlyPayment }}</strong>/mensal</p> -->
+    <center>
+      <ion-button class="footer-button" (click)="goToWhatsApp()" color="primary">Falar com proprietário</ion-button>
+    </center>
+  </ion-toolbar>
+</ion-footer>

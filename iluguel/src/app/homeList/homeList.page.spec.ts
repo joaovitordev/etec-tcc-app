@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { HomeListPage } from './home-list.page';
+import { HomeListPage } from './homeList.page';
 
 describe('HomeListPage', () => {
   let component: HomeListPage;

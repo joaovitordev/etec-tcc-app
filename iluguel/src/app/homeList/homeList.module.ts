@@ -4,17 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { PropertyDetailsPageRoutingModule } from './property-details-routing.module';
+import { HomeListPageRoutingModule } from './homeList-routing.module';
 
-import { PropertyDetailsPage } from './property-details.page';
+import { HomeListPage } from './homeList.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    PropertyDetailsPageRoutingModule
+    HomeListPageRoutingModule
   ],
-  declarations: [PropertyDetailsPage]
+  declarations: [HomeListPage]
 })
-export class PropertyDetailsPageModule {}
+export class HomeListPageModule {}

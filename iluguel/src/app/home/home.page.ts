@@ -25,6 +25,8 @@ export class HomePage implements OnInit {
 
   id: any;
   propertys: any;
+  // distance: any;
+
   
   constructor(
     private geolocation: Geolocation,
@@ -67,7 +69,7 @@ export class HomePage implements OnInit {
       // Metodo adiciona um pin point no google maps
       new google.maps.Marker({
         position: new google.maps.LatLng(this.latitude, this.longitude),
-        title: 'Iluguel-Pin-Pointer',
+        title: 'User',
         map: this.map,
         animation: google.maps.Animation.DROP,
         icon: iconUser // pin customizado
@@ -103,7 +105,7 @@ export class HomePage implements OnInit {
       icon: iconImovel  // pin customizado
       })
       this.addInfoWindow(mapMarker);
-      console.log(mapMarker);
+      // console.log(mapMarker);
     }
   } 
   // Metodo que cria um card para cada imovel cadastrado com informações simplificadas.
@@ -151,6 +153,6 @@ export class HomePage implements OnInit {
   }
   // Metodo que faz a navegação para a tela de lista onde todos so imoveis vão estar listados.
   houseInLists(){
-    this.router.navigateByUrl('/home-list');
+    this.router.navigateByUrl('/homeList');
   }
 }

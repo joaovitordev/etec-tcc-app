@@ -4,14 +4,15 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { PropertyService } from '../services/property.service';
+import {Location} from '@angular/common';
 
 // Declaração da variável global 
 declare var google: any;
 
 @Component({
-  selector: 'app-property-details',
-  templateUrl: './property-details.page.html',
-  styleUrls: ['./property-details.page.scss'],
+  selector: 'app-propertyDetails',
+  templateUrl: './propertyDetails.page.html',
+  styleUrls: ['./propertyDetails.page.scss'],
 })
 export class PropertyDetailsPage implements OnInit {
 
@@ -27,7 +28,8 @@ export class PropertyDetailsPage implements OnInit {
     private route: ActivatedRoute,
     private propertyService: PropertyService,
     private geolocation: Geolocation,
-    private nativeGeocoder: NativeGeocoder // não usado até o momento.
+    private nativeGeocoder: NativeGeocoder,
+    private _location: Location
   ) { 
     this.id = this.route.snapshot.paramMap.get('id_property');
   }
@@ -36,7 +38,9 @@ export class PropertyDetailsPage implements OnInit {
   propertys: any;
   propertyTitle: string;
   propertyUrl: any;
+  propertyImages: any;
   propertyNeighborhood: any;
+  propertyCity: any;
   propertyContract: any;
   propertyBedroom: any;
   propertyRoom: any;
@@ -55,6 +59,7 @@ export class PropertyDetailsPage implements OnInit {
   ownerName: any;
   ownerEmail: any;
   ownerTelephone: any;
+  ownerWhatsApp: any;
 
 
 
@@ -63,11 +68,15 @@ export class PropertyDetailsPage implements OnInit {
     this.loadMap();
   }
 
+  backPage() {
+    this._location.back();
+  }
+
   loadMap(){
     this.geolocation.getCurrentPosition()
-    .then(resp => {
-      this.propertyLat = resp.coords.latitude;
-      this.propertyLon = resp.coords.longitude;
+    .then(() => {
+      this.propertyLat;
+      this.propertyLon;
 
       const latLgn = new google.maps.LatLng(this.propertyLat, this.propertyLon);
 
@@ -116,6 +125,7 @@ export class PropertyDetailsPage implements OnInit {
 
     this.propertyTitle = propertyFilter[0].title;
     this.propertyUrl = propertyFilter[0].url;
+    this.propertyImages = propertyFilter[0];
     this.propertyNeighborhood = propertyFilter[0].neighborhood;
     this.propertyBedroom = propertyFilter[0].bedroom;
     this.propertyRoom = propertyFilter[0].room;
@@ -135,5 +145,11 @@ export class PropertyDetailsPage implements OnInit {
     this.ownerName = propertyFilter[0].full_name;
     this.ownerEmail = propertyFilter[0].email;
     this.ownerTelephone = propertyFilter[0].telephone;
+    this.propertyCity = propertyFilter[0].city;
+    this.ownerWhatsApp = propertyFilter[0].whatsapp;
+  }
+
+  goToWhatsApp() {
+    window.location.href = `https://api.whatsapp.com/send?phone=55${this.ownerWhatsApp}&text=Ol%C3%A1%2C%20encontrei%20voc%C3%AA%20no%20i-luguel%20e%20gostaria%20de%20saber%20mais%20sobre%20seu%20im%C3%B3vel.`;
   }
 }

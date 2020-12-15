@@ -1,0 +1,49 @@
+.header {
+    background-color: #fc5c65;
+}
+
+.icon-more-about {
+    margin-top: 18px;
+    font-size: 25px;
+    color: #fff;
+}
+
+ion-card-title {
+    font-size: 22px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .km {
+    margin-top: -117px;
+    z-index: 1000;
+    position: absolute;
+    margin-left: 84%;
+    background-color: #fc5c65;
+    color: #fff;
+    padding: 5px;
+    border-radius: 5px;
+  }
+  
+  .comodos {
+    font-size: 13px;
+    display: inline;
+    margin-left: 12px;
+  }
+  
+  .button-map {
+    background-color: #fc5c65;
+    color: #fff;
+    padding: 8px 15px 8px 15px;
+    border-radius: 18px;
+    box-shadow: rgba(0, 0, 0, 0.15) 0px 8px 28px !important;
+    margin-bottom: 10px;
+  }
+  
+  .mensalidade {
+    font-size: 15px;
+    margin-left: 21px;
+    margin-top: -10px;
+    font-weight: bold;
+  }
